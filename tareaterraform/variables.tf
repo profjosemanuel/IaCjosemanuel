@@ -25,14 +25,14 @@ default = "10.0.0.0/16"
 variable "public_subnets_cidrs" {
 description = "Lista de bloques CIDR para subredes públicas"
 type = list(string)
-default = ["10.0.1.0/24", "10.0.2.0/24"]
+default = ["10.0.0.0/24", "10.0.1.0/24"]
 }
 
 # Subredes privadas (para base de datos/servidores privados)
 variable "private_subnets_cidrs" {
 description = "Lista de bloques CIDR para subredes privadas"
 type = list(string)
-default = ["10.0.101.0/24", "10.0.102.0/24"]
+default = ["10.0.2.0/24", "10.0.3.0/24","10.0.4.0/24","10.0.5.0/24"]
 }
 
 # Nombre de par de claves SSH existente (opcional, si se desea acceso SSH a instancia)
