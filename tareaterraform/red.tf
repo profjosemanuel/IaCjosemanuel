@@ -34,7 +34,7 @@ vpc_id = aws_vpc.main_vpc.id
 cidr_block = var.private_subnets_cidrs[count.index]
 map_public_ip_on_launch = false
 #availability_zone = "${var.aws_region}${tolist(["a"])[count.index]}"
-availability_zone = "${var.aws_region}$a}"
+availability_zone = "${var.aws_region}a"
 tags = {
 Name = "${var.project_name}-private-${count.index + 1}"
 }
