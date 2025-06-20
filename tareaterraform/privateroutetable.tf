@@ -75,24 +75,24 @@ route_table_id = aws_route_table.public_rt.id
 #}
 
 # Elastic IP para el NAT Gateway
-#resource "aws_eip" "nat_eip" {
-#  domain     = "vpc"
-#  depends_on = [aws_internet_gateway.igw]
-#}
+resource "aws_eip" "nat_eip" {
+  domain     = "vpc"
+  depends_on = [aws_internet_gateway.igw]
+}
 
 # NAT Gateway en la primera subred pública
-#resource "aws_nat_gateway" "nat" {
-#allocation_id = aws_eip.nat_eip.id
-#subnet_id = aws_subnet.public[0].id # desplegar NAT en la primera subred pública (AZ "a")
-#tags = {
-#ame = "${var.project_name}-natgw"
-#}
-#depends_on = [aws_internet_gateway.igw] # necesita IGW operativo
-#}
+resource "aws_nat_gateway" "nat" {
+allocation_id = aws_eip.nat_eip.id
+subnet_id = aws_subnet.public[0].id # desplegar NAT en la primera subred pública (AZ "a")
+tags = {
+ame = "${var.project_name}-natgw"
+}
+depends_on = [aws_internet_gateway.igw] # necesita IGW operativo
+}
 
 # Agregar ruta por defecto en la tabla privada apuntando al NAT (para salidaa internet desde privadas)
-resource "aws_route" "private_nat_route" {
-route_table_id = aws_route_table.private_rt.id
-destination_cidr_block = "0.0.0.0/0"
-nat_gateway_id = aws_nat_gateway.nat.id
-}
+#resource "aws_route" "private_nat_route" {
+#route_table_id = aws_route_table.private_rt.id
+#destination_cidr_block = "0.0.0.0/0"
+#nat_gateway_id = aws_nat_gateway.nat.id
+#}
