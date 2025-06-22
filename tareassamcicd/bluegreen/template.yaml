@@ -11,6 +11,7 @@ Parameters:
   Stage:
     Type: String
     AllowedValues:
+      - Stage
       - staging
       - production
   # Nombre de la API en API Gateway

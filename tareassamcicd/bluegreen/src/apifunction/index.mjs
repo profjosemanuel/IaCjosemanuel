@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
   let mensaje = `Hola mundo!! El parámetro 'nombre' es: ${req.query.nombre}`;
 
   // TODO 1: descomentar el siguiente código para introducir un cambio
-  // mensaje = `Hola mundo!! Esta es la versión 2!! El parámetro 'nombre' es: ${req.query.nombre}`
+  mensaje = `Hola mundo!! Esta es la versión 2!! El parámetro 'nombre' es: ${req.query.nombre}`
   res.send(mensaje);
 });
 
