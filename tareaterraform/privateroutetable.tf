@@ -41,23 +41,23 @@
 #}
 
 # Tabla de enrutamiento para subredes públicas
-resource "aws_route_table" "public_rt" {
-vpc_id = aws_vpc.main_vpc.id
-route {
-cidr_block = "0.0.0.0/0"
-gateway_id = aws_internet_gateway.igw.id
-}
-tags = {
-Name = "${var.project_name}-public-rt"
-}
-}
+#resource "aws_route_table" "public_rt" {
+#vpc_id = aws_vpc.main_vpc.id
+#route {
+#cidr_block = "0.0.0.0/0"
+#gateway_id = aws_internet_gateway.igw.id
+#}
+#tags = {
+#Name = "${var.project_name}-public-rt"
+#}
+#}
 
 # Asociar subredes públicas a la tabla de enrutamiento publica
-resource "aws_route_table_association" "public_assoc" {
-count = length(var.public_subnets_cidrs)
-subnet_id = aws_subnet.public[count.index].id
-route_table_id = aws_route_table.public_rt.id
-}
+#resource "aws_route_table_association" "public_assoc" {
+#count = length(var.public_subnets_cidrs)
+#subnet_id = aws_subnet.public[count.index].id
+#route_table_id = aws_route_table.public_rt.id
+#}
 
 # (Opcional) Tabla de enrutamiento privada 
 #resource "aws_route_table" "private_rt" {
@@ -75,20 +75,20 @@ route_table_id = aws_route_table.public_rt.id
 #}
 
 # Elastic IP para el NAT Gateway
-resource "aws_eip" "nat_eip" {
-  domain     = "vpc"
-  depends_on = [aws_internet_gateway.igw]
-}
+#resource "aws_eip" "nat_eip" {
+#  domain     = "vpc"
+#  depends_on = [aws_internet_gateway.igw]
+#}
 
 # NAT Gateway en la primera subred pública
-resource "aws_nat_gateway" "nat" {
-allocation_id = aws_eip.nat_eip.id
-subnet_id = aws_subnet.public[0].id # desplegar NAT en la primera subred pública (AZ "a")
-tags = {
-ame = "${var.project_name}-natgw"
-}
-depends_on = [aws_internet_gateway.igw] # necesita IGW operativo
-}
+#resource "aws_nat_gateway" "nat" {
+#allocation_id = aws_eip.nat_eip.id
+#subnet_id = aws_subnet.public[0].id # desplegar NAT en la primera subred pública (AZ "a")
+#tags = {
+#ame = "${var.project_name}-natgw"
+#}
+#depends_on = [aws_internet_gateway.igw] # necesita IGW operativo
+#}
 
 # Agregar ruta por defecto en la tabla privada apuntando al NAT (para salidaa internet desde privadas)
 #resource "aws_route" "private_nat_route" {
